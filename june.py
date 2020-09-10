@@ -24,11 +24,9 @@ def intro():
     elif time>=12 and time <16:
         speak("Good afternoon ")
     else:
-        speak("Good evening ")              
-    speak("I am June, may i know your name please")
-    name = recog_Command().lower
-    sleep(2)
-    speak("hello Steve")
+        speak("Good evening ")               
+    
+    
     
 
 def recog_Command():
@@ -53,7 +51,7 @@ if __name__ == "__main__":
     while True:
         speak("How may i assist you")
         text = recog_Command().lower()
-        if 'wikipedia' in text:
+        if 'wikipedia' in text or ('search' in text and 'wikipedia' in text):
             speak("Searching in Wiki")
             text = text.replace("wikipedia","")
             result = wikipedia.summary(text,sentences=3)
@@ -74,7 +72,17 @@ if __name__ == "__main__":
             webbrowser.get('chrome').open("twitter.com")               
         elif 'the time' in text:
             current_time = datetime.datetime.now().strftime("%H:%M:%S")    
-            speak(f"Well, the time is {current_time}")        
+            speak(f"Well, the time is {current_time}")   
+        elif 'search' in text:
+            text=text.replace("search","")
+            if 'for me' in text:
+                text=text.replace("for me","")
+            kit.search(text)    
+        elif 'play' in text:
+            text=text.replace("play","")
+            if 'youtube' in text:
+                 text=text.replace("youtube","")
+            kit.playonyt(text)         
         elif 'stop' in text:
             break
 
